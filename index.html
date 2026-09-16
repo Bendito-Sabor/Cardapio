@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR" style="">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        @layer base {
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                overscroll-behavior: none;
+            }
+
+            main>:first-child {
+                margin-top: 0 !important;
+            }
+
+            main>:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .wheel-pointer::before {
+            content: '';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 24px solid #ab2e56;
+            z-index: 30;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script
+        id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary": "#ffffff", "on-secondary-fixed": "#3f0017", "on-tertiary": "#ffffff", "on-background": "#1d1b19", "on-tertiary-fixed": "#291800", "secondary": "#ab2e56", "surface-container-highest": "#e7e1dd", "on-error": "#ffffff", "secondary-fixed-dim": "#ffb1c1", "on-tertiary-fixed-variant": "#633f00", "surface-bright": "#fef8f3", "inverse-primary": "#f1baa3", "on-surface-variant": "#51443f", "primary-fixed": "#ffdbcc", "surface": "#fef8f3", "outline": "#83746e", "on-surface": "#1d1b19", "secondary-container": "#fd6e95", "surface-tint": "#7e5442", "surface-dim": "#dfd9d4", "error-container": "#ffdad6", "surface-container": "#f3ede8", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb955", "on-secondary-container": "#6f002f", "on-primary-fixed-variant": "#643d2c", "on-primary-container": "#bf8d78", "background": "#fef8f3", "outline-variant": "#d5c3bc", "tertiary-fixed": "#ffddb4", "on-secondary-fixed-variant": "#8a123f", "primary-container": "#4a2818", "tertiary": "#2a1800", "on-primary-fixed": "#301306", "error": "#ba1a1a", "primary-fixed-dim": "#f1baa3", "surface-container-low": "#f8f3ee", "inverse-on-surface": "#f6f0eb", "surface-container-high": "#ede7e2", "on-tertiary-container": "#d18a00", "secondary-fixed": "#ffd9df", "on-error-container": "#93000a", "primary": "#311406", "surface-variant": "#e7e1dd", "tertiary-container": "#462b00", "on-primary": "#ffffff", "inverse-surface": "#32302d" }, borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" }, spacing: { "space-xl": "2.5rem", "space-sm": "0.5rem", "space-md": "1rem", margin: "2rem", gutter: "1.25rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter-mobile": "0.75rem", "margin-mobile": "1rem" }, fontFamily: { "headline-xl-mobile": ["Outfit"], "headline-lg": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "headline-sm": ["Outfit"], "body-sm": ["Plus Jakarta Sans"], "headline-md": ["Outfit"], "display-lg-mobile": ["Outfit"], "headline-xl": ["Outfit"], "label-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "display-lg": ["Outfit"] }, fontSize: { "headline-xl-mobile": ["28px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "headline-md": ["22px", { lineHeight: "30px", fontWeight: "600" }], "display-lg-mobile": ["36px", { lineHeight: "42px", letterSpacing: "-0.02em", fontWeight: "800" }], "headline-xl": ["38px", { lineHeight: "46px", letterSpacing: "-0.02em", fontWeight: "700" }], "label-lg": ["15px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.05em", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }], "label-md": ["13px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "display-lg": ["52px", { lineHeight: "60px", letterSpacing: "-0.03em", fontWeight: "800" }] } } } }</script>
+</head>
+
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased">
+    <header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_4px_20px_-2px_rgba(49,20,6,0.06)]">
+        <div class="h-20 max-w-[1240px] mx-auto px-margin flex items-center justify-between gap-gutter">
+            <div class="flex items-center gap-space-sm shrink-0"><img alt="Bendito Sabor"
+                    class="h-10 w-auto object-contain"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBo6ZgzPwHVwvtsipckn_GxRcSXUsfE-sYWaILxmWDGYxvcmVoUl6xGJISKs6eUWYC8W0VbiBM8p4sZlWpGWEmeDJ4F9Zz1JVSUTtDfVhcyfsWHIkz1gy848lWZZ5nyxPpBHGn2gyf9HQ_uSsOlR_hAm5OYfsbDwju7f_Q8J20amVl9D6snP-7CkEO8luUNNb-QD9pULarJzdlkRypZOmT8RRhYaw_nvFiAaUzEl9dIkxQnfUOOwOOq9P_BKzrH6NTSg" />
+                <div class="flex flex-col"><span
+                        class="font-headline-sm text-headline-sm text-primary tracking-tight font-extrabold">Bendito
+                        Sabor</span><span class="font-label-sm text-label-sm text-secondary -mt-1 font-semibold">Bendito
+                        seja esse sabor!</span></div>
+            </div>
+            <nav
+                class="hidden xl:flex items-center gap-space-xs px-space-xs py-1 bg-surface-container-low rounded-full">
+                <a class="px-space-md py-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#">Início</a><a
+                    class="px-space-md py-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#combos-culminancia">Combos da Culminância</a><a
+                    class="px-space-md py-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#cardapio-oficial">Cardápio Oficial</a><a
+                    class="px-space-md py-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#roleta-surpresa">Roleta &amp; Surpresa</a><a aria-label="Instagram Benditos doces!"
+                    class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-surface-container-low text-primary hover:bg-secondary-container hover:text-on-secondary transition-colors"
+                    href="https://instagram.com/benditosdoces" rel="noopener noreferrer" target="_blank"><span
+                        class="material-symbols-outlined text-[20px]">photo_camera</span></a><a
+                    class="px-space-md py-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#cartao-fidelidade">Cartão Fidelidade</a><a
+                    class="px-space-md py-space-xs rounded-full font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#contato">Contato</a>
+            </nav>
+            <div class="flex items-center gap-space-sm shrink-0">
+                <div
+                    class="hidden md:flex items-center bg-surface-container-low rounded-full px-space-md py-space-xs gap-space-xs">
+                    <span class="material-symbols-outlined text-outline text-[18px]">search</span><input
+                        class="bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-outline w-36 lg:w-44 focus:ring-0"
+                        placeholder="Buscar brownie, suco..." type="text" />
+                </div><a aria-label="Instagram Benditos doces!"
+                    class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-surface-container-low text-primary hover:bg-secondary-container hover:text-on-secondary transition-colors"
+                    href="https://instagram.com/benditosdoces" rel="noopener noreferrer" target="_blank"><span
+                        class="material-symbols-outlined text-[20px]">photo_camera</span></a><a
+                    class="relative flex items-center justify-center w-10 h-10 rounded-full bg-surface-container-high text-primary hover:bg-secondary-fixed transition-colors"
+                    href="#cartao-fidelidade"><span
+                        class="material-symbols-outlined text-[20px]">shopping_bag</span><span
+                        class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center justify-center">Culm</span></a><a
+                    class="hidden sm:flex items-center gap-space-xs bg-primary-container text-on-primary hover:bg-primary px-space-lg py-space-sm rounded-full font-label-md text-label-md transition-all shadow-[0_4px_16px_rgba(74,40,24,0.15)]"
+                    href="https://wa.me/5511987654321?text=Olá,%20gostaria%20de%20fazer%20um%20pedido%20no%20Bendito%20Sabor!"
+                    target="_blank"><span class="material-symbols-outlined text-[18px]">chat</span><span class="">Pedir
+                        no WhatsApp</span></a>
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span
+                        class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
+            </div>
+        </div>
+    </header>
+    <main class="w-full pt-20 bg-background">
+        <div class="flex flex-col w-full">
+            <!-- HERO SECTION -->
+            <section
+                class="relative w-full overflow-hidden bg-gradient-to-b from-surface via-surface-container-low to-surface py-space-xl lg:py-20">
+                <div class="max-w-[1240px] mx-auto px-margin">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+                        <div class="lg:col-span-7 flex flex-col items-start gap-space-md z-10">
+                            <div
+                                class="inline-flex items-center gap-space-xs bg-secondary-fixed/50 text-on-secondary-fixed px-space-md py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                            </div>
+                            <div class="space-y-1">
+                                <h1 class="font-display-lg text-display-lg text-primary tracking-tight">Bendito seja
+                                    esse sabor!</h1>
+                                <p class="font-headline-sm text-headline-sm text-secondary font-medium">Doces
+                                    artesanais, brownies irresistíveis, copos da felicidade e mini churros feitos com
+                                    afeto.</p>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Receitas exclusivas
+                                com chocolate nobre e ingredientes selecionados. Explore nosso cardápio especial e faça
+                                seu pedido direto pelo balcão ou WhatsApp!</p>
+                            <div class="flex flex-wrap items-center gap-space-md pt-space-xs"><a
+                                    class="flex items-center justify-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg px-space-xl py-space-md rounded-full shadow-lg hover:shadow-xl transition-all"
+                                    href="#cardapio-oficial"><span
+                                        class="material-symbols-outlined text-[20px]">menu_book</span><span class="">Ver
+                                        Cardápio Oficial</span></a><a
+                                    class="flex items-center justify-center gap-space-xs bg-secondary hover:bg-on-secondary-container text-on-secondary font-label-lg text-label-lg px-space-lg py-space-md rounded-full shadow-md transition-all"
+                                    href="https://wa.me/5511987654321?text=Olá,%20gostaria%20de%20fazer%20um%20pedido%20no%20Bendito%20Sabor!"
+                                    target="_blank" rel="noopener noreferrer"><span
+                                        class="material-symbols-outlined text-[20px]">chat</span><span class="">Pedir
+                                        via WhatsApp</span></a></div>
+                            <div
+                                class="flex items-center gap-space-lg pt-space-sm border-t border-surface-container-high w-full max-w-lg text-xs font-semibold text-on-surface-variant">
+                                <div class="flex items-center gap-1.5"><span
+                                        class="material-symbols-outlined text-secondary text-[18px]">verified</span><span
+                                        class="">Puro Chocolate Nobre</span></div>
+                                <div class="flex items-center gap-1.5"><span
+                                        class="material-symbols-outlined text-secondary text-[18px]">redeem</span><span
+                                        class="">Cartão Fidelidade R$30</span></div>
+                                <div class="flex items-center gap-1.5"><span
+                                        class="material-symbols-outlined text-secondary text-[18px]">casino</span><span
+                                        class="">Roleta de Prêmios</span></div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-5 flex justify-center lg:justify-end">
+                            <div
+                                class="relative w-full max-w-sm rounded-2xl p-space-md bg-surface-container-lowest shadow-xl border border-secondary-fixed/40 flex flex-col items-center text-center">
+                                <div
+                                    class="w-56 h-56 rounded-full overflow-hidden bg-secondary-fixed/20 p-2 flex items-center justify-center shadow-inner">
+                                    <video class="w-full h-full object-cover rounded-full" autoplay loop muted
+                                        playsinline>
+                                        <source src="assets/Logo Animada.mp4" type="video/mp4" />
+                                    </video></div>
+                                <div class="mt-space-md"><span
+                                        class="font-headline-sm text-headline-sm text-primary font-bold block">Bendito
+                                        Sabor</span><span
+                                        class="font-body-sm text-body-sm text-secondary font-medium">Feito para adoçar
+                                        seu Dia da Culminância</span></div><a
+                                    class="mt-space-sm w-full py-2 bg-secondary-fixed hover:bg-secondary-fixed-dim text-on-secondary-fixed font-label-md text-label-md rounded-full transition-colors flex items-center justify-center gap-1"
+                                    href="#combos-culminancia"><span
+                                        class="material-symbols-outlined text-[18px]">stars</span><span class="">Ver
+                                        Combos Promocionais</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- SEÇÃO ESPECIAL DIA DA CULMINÂNCIA / COMBOS PROMOCIONAIS -->
+            <section class="w-full py-space-xl bg-surface-container-low" id="combos-culminancia">
+                <div class="max-w-[1240px] mx-auto px-margin">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg">
+                        <div>
+                            <div
+                                class="inline-flex items-center gap-1 text-secondary font-bold font-label-sm text-label-sm uppercase tracking-wider">
+                                <span class="material-symbols-outlined text-[16px]">local_fire_department</span>
+                                <span class="">Imperdível no Evento</span>
+                            </div>
+                            <h2 class="font-headline-xl text-headline-xl text-primary mt-1">Especial Dia da Culminância:
+                                Combos Promocionais</h2>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant max-w-md">Harmonizações criadas com
+                            carinho pelo <strong>Bendito Sabor!</strong> para você economizar e se deliciar.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                        <!-- Combo 1: Brownie + Suco -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-space-md shadow-md border-2 border-secondary-fixed/50 hover:border-secondary flex flex-col justify-between transition-all hover:shadow-xl relative">
+                            <span
+                                class="absolute -top-3 right-4 bg-secondary text-on-secondary font-label-sm text-label-sm px-3 py-0.5 rounded-full shadow font-bold">Mais
+                                Vendido</span>
+                            <div>
+                                <div
+                                    class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-space-sm">
+                                    <span class="material-symbols-outlined text-[28px]">lunch_dining</span>
+                                </div>
+                                <span class="font-label-sm text-label-sm text-secondary font-bold uppercase">Combo
+                                    Brownie</span>
+                                <h3 class="font-headline-sm text-headline-sm text-primary mt-1">Brownie + Suco</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Um delicioso brownie
+                                    artesanal com casquinha crocante acompanhado de copo de suco natural da fruta
+                                    geladinho.</p>
+                            </div>
+                            <div
+                                class="pt-space-md border-t border-surface-container-high mt-space-md flex items-center justify-between">
+                                <div>
+                                    <span class="font-label-sm text-label-sm text-outline block">Preço
+                                        Promocional</span>
+                                    <span class="font-headline-sm text-headline-sm text-primary font-bold">R$
+                                        16,00</span>
+                                </div>
+                                <button
+                                    class="bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors"
+                                    onclick="addToCart('Combo Brownie (Brownie + Suco)', 16.00)">
+                                    Pedir
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Combo 2: Churros + Cappuccino -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-space-md shadow-md border-2 border-secondary-fixed/50 hover:border-secondary flex flex-col justify-between transition-all hover:shadow-xl relative">
+                            <span
+                                class="absolute -top-3 right-4 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-0.5 rounded-full shadow font-bold">Cremoso</span>
+                            <div>
+                                <div
+                                    class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-space-sm">
+                                    <span class="material-symbols-outlined text-[28px]">bakery_dining</span>
+                                </div>
+                                <span class="font-label-sm text-label-sm text-secondary font-bold uppercase">Combo
+                                    Churros</span>
+                                <h3 class="font-headline-sm text-headline-sm text-primary mt-1">Mini churros +
+                                    Cappuccino</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Porção com 6 mini
+                                    churros quentinhos (Doce de Leite ou Brigadeiro) com nosso Cappuccino aveludado e
+                                    perfumado.</p>
+                            </div>
+                            <div
+                                class="pt-space-md border-t border-surface-container-high mt-space-md flex items-center justify-between">
+                                <div>
+                                    <span class="font-label-sm text-label-sm text-outline block">Preço
+                                        Promocional</span>
+                                    <span class="font-headline-sm text-headline-sm text-primary font-bold">R$
+                                        19,00</span>
+                                </div>
+                                <button
+                                    class="bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors"
+                                    onclick="addToCart('Combo Churros (Mini churros + Cappuccino)', 19.00)">
+                                    Pedir
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Combo 3: Cookie + Café -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-space-md shadow-md border-2 border-secondary-fixed/50 hover:border-secondary flex flex-col justify-between transition-all hover:shadow-xl relative">
+                            <span
+                                class="absolute -top-3 right-4 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm px-3 py-0.5 rounded-full shadow font-bold">Clássico</span>
+                            <div>
+                                <div
+                                    class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed mb-space-sm">
+                                    <span class="material-symbols-outlined text-[28px]">coffee</span>
+                                </div>
+                                <span class="font-label-sm text-label-sm text-secondary font-bold uppercase">Combo
+                                    Cookie</span>
+                                <h3 class="font-headline-sm text-headline-sm text-primary mt-1">Cookie + Café</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Cookie tradicional
+                                    amanteigado e recheado de gotas de chocolate nobre combinado com um café quentinho
+                                    passado na hora.</p>
+                            </div>
+                            <div
+                                class="pt-space-md border-t border-surface-container-high mt-space-md flex items-center justify-between">
+                                <div>
+                                    <span class="font-label-sm text-label-sm text-outline block">Preço
+                                        Promocional</span>
+                                    <span class="font-headline-sm text-headline-sm text-primary font-bold">R$
+                                        14,00</span>
+                                </div>
+                                <button
+                                    class="bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors"
+                                    onclick="addToCart('Combo Cookie (Cookie + Café)', 14.00)">
+                                    Pedir
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Combo 4: Copo da Felicidade + Suco -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-space-md shadow-md border-2 border-secondary-fixed/50 hover:border-secondary flex flex-col justify-between transition-all hover:shadow-xl relative">
+                            <span
+                                class="absolute -top-3 right-4 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-3 py-0.5 rounded-full shadow font-bold">O
+                                Mais Querido</span>
+                            <div>
+                                <div
+                                    class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container mb-space-sm">
+                                    <span class="material-symbols-outlined text-[28px]">icecream</span>
+                                </div>
+                                <span class="font-label-sm text-label-sm text-secondary font-bold uppercase">Combo
+                                    Especial</span>
+                                <h3 class="font-headline-sm text-headline-sm text-primary mt-1">Copo da Felicidade +
+                                    Suco</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-2">O generoso Copo da
+                                    Felicidade montado em camadas nobres acompanhado de uma opção refrescante de suco da
+                                    fruta.</p>
+                            </div>
+                            <div
+                                class="pt-space-md border-t border-surface-container-high mt-space-md flex items-center justify-between">
+                                <div>
+                                    <span class="font-label-sm text-label-sm text-outline block">Preço
+                                        Promocional</span>
+                                    <span class="font-headline-sm text-headline-sm text-primary font-bold">R$
+                                        28,00</span>
+                                </div>
+                                <button
+                                    class="bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors"
+                                    onclick="addToCart('Combo Especial (Copo da Felicidade + Suco)', 28.00)">
+                                    Pedir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- SEÇÃO DOCE SURPRESA & ROLETA DA SORTE -->
+            <section class="w-full py-space-lg bg-surface-container-low" id="roleta-surpresa">
+                <div class="max-w-[1240px] mx-auto px-margin">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+                        <div
+                            class="lg:col-span-4 bg-gradient-to-br from-primary to-primary-container rounded-2xl p-space-md text-on-primary flex flex-col justify-between shadow-lg">
+                            <div class="flex items-center justify-between mb-2"><span
+                                    class="inline-flex items-center gap-1 bg-secondary text-on-secondary font-label-sm text-xs px-2.5 py-0.5 rounded-full font-bold uppercase"><span
+                                        class="material-symbols-outlined text-[14px]">help</span> Doce
+                                    Surpresa</span><span class="text-xl font-extrabold text-secondary-fixed">R$
+                                    15,00</span></div>
+                            <h3 class="font-headline-md text-headline-md text-white mt-1">Caixinha Misteriosa Bendito
+                            </h3>
+                            <p class="font-body-sm text-body-sm text-surface-container-highest mt-1">Crocância e coração
+                                cremoso em embalagem lacrada especial da Culminância.</p><button
+                                class="mt-space-md w-full bg-secondary hover:bg-on-secondary-container text-on-secondary font-label-md text-label-md py-2 rounded-full shadow transition-all flex items-center justify-center gap-space-xs"
+                                onclick="addToCart('Caixa Doce Surpresa', 15.00)"><span
+                                    class="material-symbols-outlined text-[18px]">card_giftcard</span><span
+                                    class="">Comprar Doce Surpresa</span></button>
+                        </div>
+                        <div
+                            class="lg:col-span-8 bg-surface-container-lowest rounded-2xl p-space-md shadow-lg border border-secondary-fixed/40 flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-space-sm">
+                                <div><span
+                                        class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Interatividade
+                                        do Evento</span>
+                                    <h3 class="font-headline-sm text-headline-sm text-primary font-bold">Roleta da Sorte
+                                        Bendita (1 giro por pedido)</h3>
+                                </div><button
+                                    class="bg-secondary hover:bg-on-secondary-container text-on-secondary font-label-md text-label-md px-space-md py-1.5 rounded-full shadow transition-all flex items-center gap-1"
+                                    id="btn-spin" onclick="spinLuckyWheel()"><span
+                                        class="material-symbols-outlined text-[18px]">casino</span><span class="">Girar
+                                        Roleta</span></button>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-center gap-space-md">
+                                <div class="relative w-40 h-40 flex items-center justify-center shrink-0 wheel-pointer">
+                                    <div class="w-full h-full rounded-full border-4 border-primary shadow-lg overflow-hidden relative flex items-center justify-center transition-all duration-[3000ms] ease-out"
+                                        id="lucky-wheel"
+                                        style="background: conic-gradient(rgb(171, 46, 86) 0deg, rgb(171, 46, 86) 51deg, rgb(49, 20, 6) 51deg, rgb(49, 20, 6) 102deg, rgb(255, 185, 85) 102deg, rgb(255, 185, 85) 154deg, rgb(74, 40, 24) 154deg, rgb(74, 40, 24) 205deg, rgb(253, 110, 149) 205deg, rgb(253, 110, 149) 257deg, rgb(99, 63, 0) 257deg, rgb(99, 63, 0) 308deg, rgb(131, 116, 110) 308deg, rgb(131, 116, 110) 360deg); transform: rotate(3805.71deg);">
+                                        <div
+                                            class="w-10 h-10 bg-surface rounded-full shadow border-2 border-primary flex items-center justify-center z-20">
+                                            <span class="material-symbols-outlined text-secondary text-lg">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 w-full">
+                                    <div class="bg-surface-container-low p-space-sm rounded-xl mb-2"><span
+                                            class="font-body-sm text-body-sm text-primary font-medium"
+                                            id="wheel-status-text">🎉 <strong>PARABÉNS!</strong> Você ganhou: <span
+                                                class="text-secondary font-bold">R$ 5 de desconto</span>! Apresente este
+                                            cupom ao pagar.</span></div>
+                                    <div class="grid grid-cols-2 gap-1.5 text-xs text-on-surface"><span
+                                            class="prize-pill p-1 px-2 rounded bg-surface-container-low" id="prize-0">🍫
+                                            Ganhe brigadeiro</span><span
+                                            class="prize-pill p-1 px-2 rounded bg-surface-container-low" id="prize-1">🍪
+                                            Ganhe cookie</span><span
+                                            class="prize-pill p-1 px-2 rounded bg-surface-container-low bg-secondary-fixed font-bold"
+                                            id="prize-2">🏷️ R$ 5 de desconto</span><span
+                                            class="prize-pill p-1 px-2 rounded bg-surface-container-low" id="prize-3">🎁
+                                            Doce surpresa</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- SEÇÃO CARTÃO FIDELIDADE -->
+            <section class="w-full py-space-md bg-surface" id="cartao-fidelidade">
+                <div class="max-w-[1240px] mx-auto px-margin">
+                    <div
+                        class="bg-surface-container-low rounded-2xl p-space-md border border-secondary-fixed/40 flex flex-col md:flex-row items-center justify-between gap-space-md">
+                        <div>
+                            <div class="inline-flex items-center gap-1 text-secondary font-bold text-xs uppercase"><span
+                                    class="material-symbols-outlined text-[16px]">loyalty</span><span class="">Cartão
+                                    Fidelidade Bendito</span></div>
+                            <h4 class="font-headline-sm text-headline-sm text-primary font-bold mt-0.5">A cada R$ 30 em
+                                compras = 1 Carimbo para Brinde Especial!</h4>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">Válido durante todo o Dia da
+                                Culminância no balcão e WhatsApp.</p>
+                        </div><a
+                            class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-space-lg py-2 rounded-full transition-colors flex items-center gap-1 shadow-sm shrink-0"
+                            href="https://wa.me/5511987654321?text=Olá!%20Quero%20ativar%20meu%20Cartão%20Fidelidade%20Bendito%20Sabor!"
+                            target="_blank"><span class="material-symbols-outlined text-[18px]">verified</span><span
+                                class="">Ativar Cartão no WhatsApp</span></a>
+                    </div>
+                </div>
+            </section>
+            <!-- CARDÁPIO COMPLETO E PRODUTOS (Com quantidades exatas do evento) -->
+            <section class="w-full py-space-xl bg-surface border-t border-b border-surface-container"
+                id="cardapio-oficial">
+                <div class="max-w-[1240px] mx-auto px-margin">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg">
+                        <div>
+                            <div
+                                class="inline-flex items-center gap-1 text-secondary font-bold font-label-sm text-label-sm uppercase tracking-wider">
+                                <span class="material-symbols-outlined text-[18px]">cake</span><span class="">Destaque
+                                    Principal</span>
+                            </div>
+                            <h2
+                                class="font-display-lg text-headline-xl md:text-display-lg text-primary tracking-tight mt-1">
+                                Cardápio Oficial &amp; Delícias</h2>
+                            <p class="font-body-md text-body-md text-on-surface-variant mt-1">Doces artesanais frescos,
+                                preparados com ingredientes nobres para o evento.</p>
+                        </div>
+                        <div class="flex items-center gap-space-xs bg-surface-container-low p-1 rounded-full"><button
+                                class="filter-btn px-space-md py-1.5 rounded-full font-label-md text-label-md bg-primary text-on-primary transition-colors"
+                                onclick="filterMenu('todos', this)">Todos</button><button
+                                class="filter-btn px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors"
+                                onclick="filterMenu('doces', this)">Doces &amp; Sobremesas</button><button
+                                class="filter-btn px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors"
+                                onclick="filterMenu('bebidas', this)">Bebidas &amp; Cafeteria</button></div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter" id="menu-items-grid">
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">inventory</span> 10
+                                        unidades</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        10,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-primary-fixed/30 flex items-center justify-center text-primary mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">cookie</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Brownie Tradicional</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cacau selecionado,
+                                    casquinha craquelada perfeita e textura densa que derrete na boca.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Brownies</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Brownie Tradicional', 10.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">inventory</span> 10
+                                        unidades</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        12,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-secondary-fixed/40 flex items-center justify-center text-secondary mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">cake</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Brownie Ninho</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Massa nobre com farta
+                                    cobertura cremosa de leite Ninho aveludado e polvilhado.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Brownies</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Brownie Ninho', 12.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">inventory</span> 10
+                                        unidades</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        12,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">bakery_dining</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Brownie Brigadeiro</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Coberto com brigadeiro
+                                    artesanal nobre de panela e confeitos crocantes nobres.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Brownies</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Brownie Brigadeiro', 12.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border-2 border-secondary-fixed/50 hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">star</span> 10
+                                        copos</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        22,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">icecream</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Copo da Felicidade Ninho c/ Nutella</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Camadas generosas de
+                                    Nutella pura, creme Ninho trufado e pedaços de brownie.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-secondary font-bold">Mais Pedido</span><button
+                                    class="flex items-center gap-space-xs bg-secondary hover:bg-on-secondary-container text-on-secondary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Copo da Felicidade Ninho com Nutella', 22.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">inventory</span> 10
+                                        copos</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        22,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">icecream</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Copo da Felicidade Morango ou Uva</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Frutas frescas
+                                    selecionadas harmonizadas com brigadeiro cremoso artesanal.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Copo da Felicidade</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Copo da Felicidade Morango ou Uva', 22.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-primary-container text-on-primary font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">inventory</span> 10
+                                        fatias</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        15,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">pie_chart</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Torta Escocesa Tradicional</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Base crocante
+                                    exclusiva, recheio toffee aveludado e ganache de chocolate nobre.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Tortas Nobres</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Torta Escocesa Tradicional', 15.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">inventory</span> 10
+                                        unidades</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        10,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">cookie</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Cookie Tradicional</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Massa amanteigada
+                                    dourada com gotas generosas de puro chocolate ao leite.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Cookies</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Cookie Tradicional', 10.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="doces">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">inventory</span> Porção 6
+                                        un</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$
+                                        14,00</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">bakery_dining</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Mini Churros (Doce de Leite ou Brigadeiro)</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Mini churros
+                                    quentinhos e crocantes passados na canela com recheio abundante.</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Churros</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Mini Churros (6 un)', 14.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                        <div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-md shadow-sm hover:shadow-xl transition-all border border-surface-container hover:border-secondary flex flex-col justify-between"
+                            data-category="bebidas">
+                            <div>
+                                <div class="flex justify-between items-start mb-space-sm"><span
+                                        class="bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1"><span
+                                            class="material-symbols-outlined text-[14px]">local_cafe</span> Cafeteria
+                                        &amp; Sucos</span><span
+                                        class="font-headline-md text-headline-md text-primary font-extrabold">R$ 5 a
+                                        14</span></div>
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-primary-fixed/40 flex items-center justify-center text-primary mb-3">
+                                    <span class="material-symbols-outlined text-[26px]">local_cafe</span>
+                                </div>
+                                <h3
+                                    class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors">
+                                    Bebidas &amp; Cafeteria Artesanal</h3>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Café especial (R$ 5),
+                                    Cappuccino cremoso (R$ 8) e Garrafas 1L de Suco Natural Morango, Maracujá ou Laranja
+                                    (R$ 12 a 14).</p>
+                            </div>
+                            <div
+                                class="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+                                <span class="text-xs text-outline font-medium">Bebidas</span><button
+                                    class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-full font-label-md text-label-md transition-colors shadow-sm"
+                                    onclick="addToCart('Bebida da Cafeteria', 8.00)"><span
+                                        class="material-symbols-outlined text-[16px]">add</span> Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- BANNER CTA FINAL DE CONVERSÃO -->
+            <section class="w-full py-space-xl lg:py-24 bg-surface-container-low" id="contato">
+                <div class="max-w-[1000px] mx-auto px-margin text-center">
+                    <div class="flex flex-col items-center gap-space-md">
+                        <div
+                            class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shadow-md animate-bounce">
+                            <span class="material-symbols-outlined text-[32px]">favorite</span>
+                        </div>
+                        <span
+                            class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Bendito
+                            Sabor • Culminância</span>
+                        <h2 class="font-display-lg text-display-lg text-primary max-w-2xl tracking-tight">
+                            Bendito seja esse sabor!
+                        </h2>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                            Garanta seus doces e bebidas antes que o estoque do evento acabe. Peça pelo WhatsApp ou
+                            retire direto em nossa banca especial!
+                        </p>
+                        <div
+                            class="flex flex-wrap items-center justify-center gap-space-md pt-space-xs w-full sm:w-auto">
+                            <a class="flex items-center gap-space-xs bg-secondary hover:bg-on-secondary-container text-on-secondary font-label-lg text-label-lg px-space-xl py-space-md rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5"
+                                href="https://wa.me/5511987654321?text=Olá,%20quero%20garantir%20meu%20pedido%20no%20Bendito%20Sabor!"
+                                target="_blank">
+                                <span class="material-symbols-outlined text-[20px]"
+                                    style='font-variation-settings: "FILL" 1;'>chat</span>
+                                <span class="">Pedir Agora via WhatsApp</span>
+                            </a>
+                            <a class="flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-lg text-label-lg px-space-lg py-space-md rounded-full transition-colors"
+                                href="#cardapio-oficial">
+                                <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                                <span class="">Ver Quantidades Restantes</span>
+                            </a>
+                        </div>
+                        <div
+                            class="flex items-center gap-space-md text-on-surface-variant pt-space-sm font-label-sm text-label-sm">
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-secondary text-[16px]">celebration</span>
+                                Evento de Culminância
+                            </span>
+                            <span class="">•</span>
+                            <span class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-secondary text-[16px]">credit_card</span>
+                                PIX, Cartão ou Dinheiro
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- QUICK FLOATING TOAST -->
+            <div class="fixed bottom-6 right-6 z-50 transform transition-all duration-300 bg-primary text-on-primary rounded-xl px-space-lg py-space-md shadow-2xl flex items-center gap-space-sm translate-y-24 opacity-0 pointer-events-none"
+                id="cart-toast">
+                <span class="material-symbols-outlined text-secondary-fixed text-[24px]">check_circle</span>
+                <div class="flex flex-col">
+                    <span class="font-label-md text-label-md text-on-primary font-bold" id="toast-title">Brownie
+                        Brigadeiro</span>
+                    <span class="font-body-sm text-body-sm text-surface-container-highest" id="toast-desc">R$ 12,00
+                        adicionado ao pedido do Bendito Sabor!</span>
+                </div>
+            </div>
+            <script>
+                // Filter for Menu Categories
+                function filterMenu(category, btn) {
+                    const allBtns = document.querySelectorAll('.filter-btn');
+                    allBtns.forEach(b => {
+                        b.classList.remove('bg-primary', 'text-on-primary');
+                        b.classList.add('bg-surface-container-high', 'text-on-surface');
+                    });
+                    btn.classList.remove('bg-surface-container-high', 'text-on-surface');
+                    btn.classList.add('bg-primary', 'text-on-primary');
+
+                    const cards = document.querySelectorAll('.menu-card');
+                    cards.forEach(c => {
+                        if (category === 'todos' || c.getAttribute('data-category') === category) {
+                            c.style.display = 'flex';
+                        } else {
+                            c.style.display = 'none';
+                        }
+                    });
+                }
+
+                // Toast Feedback
+                function addToCart(itemName, price) {
+                    const toast = document.getElementById('cart-toast');
+                    const title = document.getElementById('toast-title');
+                    const desc = document.getElementById('toast-desc');
+
+                    title.textContent = itemName;
+                    desc.textContent = 'R$ ' + price.toFixed(2).replace('.', ',') + ' adicionado ao pedido do Benditos doces!';
+
+                    toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+                    toast.classList.add('translate-y-0', 'opacity-100');
+
+                    setTimeout(() => {
+                        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+                        toast.classList.remove('translate-y-0', 'opacity-100');
+                    }, 3500);
+                }
+
+                // Interactive Lucky Wheel
+                const prizes = [
+                    "Ganhe um brigadeiro",
+                    "Ganhe um cookie",
+                    "R$ 5 de desconto",
+                    "Doce surpresa",
+                    "Ganhe 2x na bebida",
+                    "Compra vale em dobro no cartão fidelidade",
+                    "Tente novamente"
+                ];
+
+                let isSpinning = false;
+                let currentRotation = 0;
+
+                function spinLuckyWheel() {
+                    if (isSpinning) return;
+                    isSpinning = true;
+                    const wheel = document.getElementById('lucky-wheel');
+                    const btn = document.getElementById('btn-spin');
+                    const statusText = document.getElementById('wheel-status-text');
+
+                    btn.disabled = true;
+                    btn.classList.add('opacity-50');
+                    statusText.textContent = "A roleta está girando... boa sorte!";
+
+                    // Reset highlight
+                    document.querySelectorAll('.prize-pill').forEach(p => p.classList.remove('bg-secondary-fixed', 'font-bold'));
+
+                    const randomIndex = Math.floor(Math.random() * prizes.length);
+                    // 7 slices -> 360 / 7 ≈ 51.428 deg each
+                    const sliceDeg = 360 / 7;
+                    const extraSpins = 5 * 360; // 5 full turns
+                    const targetDegree = extraSpins + (randomIndex * sliceDeg) + (sliceDeg / 2);
+                    currentRotation += targetDegree;
+
+                    wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+                    setTimeout(() => {
+                        const wonPrize = prizes[randomIndex];
+                        const highlightedPill = document.getElementById(`prize-${randomIndex}`);
+                        if (highlightedPill) {
+                            highlightedPill.classList.add('bg-secondary-fixed', 'font-bold');
+                        }
+
+                        if (wonPrize === "Tente novamente") {
+                            statusText.innerHTML = `🔄 <strong>Não foi dessa vez!</strong> Tente novamente em sua próxima compra!`;
+                        } else {
+                            statusText.innerHTML = `🎉 <strong>PARABÉNS!</strong> Você ganhou: <span class="text-secondary font-bold">${wonPrize}</span>! Apresente este cupom ao pagar.`;
+                            addToCart(`Prêmio Roleta: ${wonPrize}`, 0.00);
+                        }
+
+                        isSpinning = false;
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50');
+                    }, 3200);
+                }
+            </script>
+        </div>
+    </main>
+    <footer class="w-full bg-surface-container-low">
+        <div class="max-w-[1240px] mx-auto px-margin py-space-xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter mb-space-xl">
+                <div class="lg:col-span-4 flex flex-col gap-space-md">
+                    <div class="flex items-center gap-space-sm"><img alt="Bendito Sabor"
+                            class="h-10 w-auto object-contain"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTLJAgKjJd5M2xQPAuMZWphsbKj911goHHrXFY6aGrJj7iVbWHlZv9SxDAZbEVMLPrELtQg5GQY_of-KHViIRECl3pQW-ePxmgt10TWtFWkZxkYYU3gfEk1DJEvhXQvXSrEp4uFmnX9DnK5ptD6ePlHMwku2nL_-Xv2podQLTvFvUyphFmIXtXus6qtTEwO38cnUeEahlo-Sm8Xh2oCAU6YSRsaORAvI-Lq5sHQXdRan0SZO8IICn9tZ7PLbkFVixx_A" />
+                        <div class="flex flex-col"><span
+                                class="font-headline-md text-headline-md text-primary tracking-tight font-extrabold">Bendito
+                                Sabor</span><span
+                                class="font-label-sm text-label-sm text-secondary -mt-1 font-semibold">Bendito seja esse
+                                sabor!</span></div>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Confeitaria artesanal feita
+                        com alma, afeto e os ingredientes mais nobres. Marcando presença no Dia da Culminância com
+                        brownies, copos da felicidade, tortas, cookies e brindes especiais!</p>
+                    <div class="flex items-center gap-space-sm pt-space-xs"><a aria-label="Instagram"
+                            class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-primary hover:bg-secondary-container hover:text-on-secondary transition-colors"
+                            href="https://instagram.com/benditosdoces" rel="noopener noreferrer" target="_blank"><span
+                                class="material-symbols-outlined text-[18px]">photo_camera</span></a><a
+                            aria-label="WhatsApp"
+                            class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-primary hover:bg-secondary-container hover:text-on-secondary transition-colors"
+                            href="https://wa.me/5511987654321" rel="noopener noreferrer" target="_blank"><span
+                                class="material-symbols-outlined text-[18px]">forum</span></a><a
+                            aria-label="Localização"
+                            class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-primary hover:bg-secondary-container hover:text-on-secondary transition-colors"
+                            href="#contato"><span class="material-symbols-outlined text-[18px]">location_on</span></a><a
+                            class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary pl-space-xs transition-colors"
+                            href="https://instagram.com/benditosabor" rel="noopener noreferrer"
+                            target="_blank">@benditosabor</a></div>
+                </div>
+                <div class="lg:col-span-2 flex flex-col gap-space-sm"><span
+                        class="font-headline-sm text-headline-sm text-primary">Cardápio Oficial</span><a
+                        class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors"
+                        href="#cardapio-oficial">Brownies Artesanais</a><a
+                        class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors"
+                        href="#cardapio-oficial">Copos da Felicidade</a><a
+                        class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors"
+                        href="#cardapio-oficial">Torta Escocesa</a><a
+                        class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors"
+                        href="#cardapio-oficial">Mini Churros</a><a
+                        class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors"
+                        href="#cardapio-oficial">Bebidas e Cafeteria</a></div>
+                <div class="lg:col-span-3 flex flex-col gap-space-sm"><span
+                        class="font-headline-sm text-headline-sm text-primary">Atendimento &amp; Evento</span>
+                    <div class="flex items-start gap-space-xs text-on-surface-variant"><span
+                            class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">celebration</span>
+                        <div class="font-body-sm text-body-sm"><span class="">Especial Culminância</span><br /><span
+                                class="font-label-sm text-label-sm text-primary">Atendimento no Balcão &amp;
+                                Online</span></div>
+                    </div>
+                    <div class="flex items-start gap-space-xs text-on-surface-variant pt-space-xs"><span
+                            class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">loyalty</span>
+                        <div class="font-body-sm text-body-sm"><span class="">Cartão Fidelidade:</span><br /><span
+                                class="font-label-sm text-label-sm text-primary">R$ 30 em compras = 1 Brinde</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-space-xs text-on-surface-variant pt-space-xs"><span
+                            class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">call</span><span
+                            class="font-body-sm text-body-sm">(11) 98765-4321</span></div>
+                </div>
+                <div class="lg:col-span-3 flex flex-col gap-space-sm"><span
+                        class="font-headline-sm text-headline-sm text-primary">Clube Bendito Sabor VIP</span>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Receba novidades dos nossos drops
+                        semanais, novos sabores e promoções pós-culminância.</p>
+                    <div
+                        class="flex items-center bg-surface rounded-full p-1 pl-space-md shadow-[0_2px_12px_rgba(49,20,6,0.04)]">
+                        <input
+                            class="bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-outline w-full focus:ring-0"
+                            placeholder="Seu melhor e-mail" type="email" /><button
+                            class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 hover:bg-on-secondary-container transition-colors"
+                            type="button"><span class="material-symbols-outlined text-[18px]">send</span></button>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+                <p class="">© 2026 Bendito Sabor • Todos os direitos reservados.</p>
+                <div class="flex items-center gap-space-md"><a class="hover:text-primary transition-colors"
+                        href="#cartao-fidelidade">Cartão Fidelidade</a><a class="hover:text-primary transition-colors"
+                        href="#roleta-surpresa">Roleta &amp; Surpresa</a><a class="hover:text-primary transition-colors"
+                        href="#combos-culminancia">Combos</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
